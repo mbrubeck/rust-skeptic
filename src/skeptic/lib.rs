@@ -608,6 +608,10 @@ pub mod rt {
             rlib.pop();
             rlib.pop();
             rlib.push(format!("deps/lib{}-{}.rlib", libname, hash));
+            if !rlib.exists() {
+                rlib.pop();
+                rlib.push(format!("deps/lib{}-{}.so", libname, hash));
+            }
 
             let file = File::open(pth)?;
             let mtime = file.metadata()?.modified()?;
